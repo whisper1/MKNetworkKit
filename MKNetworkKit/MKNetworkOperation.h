@@ -698,5 +698,9 @@ typedef enum {
 
 - (id)initWithURLString:(NSString *)aURLString
                  params:(NSDictionary *)params
-             httpMethod:(NSString *)method;
+        httpMethod:(NSString *)method;
+
+- (id)initWithURLString:(NSString *)aURLString
+                 params:(NSDictionary *)params
+             httpMethod:(NSString *)method timeOut:(NSTimeInterval) timeOutInSeconds;
 @end
