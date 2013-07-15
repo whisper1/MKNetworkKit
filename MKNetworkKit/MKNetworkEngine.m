@@ -548,6 +548,37 @@ static NSOperationQueue *_sharedNetworkQueue;
   return op;
 }
 
+-(MKNetworkOperation *)imageAtURL:(NSURL *)url progressHandler:(MKNKProgressBlock)progressBlock completionHandler:(MKNKImageBlock)imageFetchedBlock errorHandler:(MKNKResponseErrorBlock)errorBlock
+{
+    if (url == nil) {
+        return nil;
+    }
+    
+    MKNetworkOperation *op = [self operationWithURLString:[url absoluteString]];
+    op.shouldCacheResponseEvenIfProtocolIsHTTPS = YES;
+    
+    if (progressBlock)
+        [op onDownloadProgressChanged:^(double progress) {
+            progressBlock(progress);
+        }];
+    
+    [op addCompletionHandler:^(MKNetworkOperation *completedOperation) {
+        
+        if (imageFetchedBlock)
+            imageFetchedBlock([completedOperation responseImage],
+                              url,
+                              [completedOperation isCachedResponse]);
+        
+    } errorHandler:^(MKNetworkOperation *completedOperation, NSError *error) {
+        if (errorBlock)
+            errorBlock(completedOperation, error);
+    }];
+    
+    [self enqueueOperation:op];
+    
+    return op;
+}
+
 #if TARGET_OS_IPHONE
 
 - (MKNetworkOperation*)imageAtURL:(NSURL *)url size:(CGSize) size completionHandler:(MKNKImageBlock) imageFetchedBlock errorHandler:(MKNKResponseErrorBlock) errorBlock {

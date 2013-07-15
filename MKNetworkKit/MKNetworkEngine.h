@@ -239,6 +239,8 @@
  */
 - (MKNetworkOperation*)imageAtURL:(NSURL *)url completionHandler:(MKNKImageBlock) imageFetchedBlock errorHandler:(MKNKResponseErrorBlock) errorBlock;
 
+-(MKNetworkOperation *)imageAtURL:(NSURL *)url progressHandler:(MKNKProgressBlock)progressBlock completionHandler:(MKNKImageBlock)imageFetchedBlock errorHandler:(MKNKResponseErrorBlock)errorBlock;
+
 /*!
  *  @abstract Handy helper method for fetching images asynchronously in the background
  *
