@@ -1148,7 +1148,8 @@ OSStatus extractIdentityAndTrust(CFDataRef inPKCS12Data,        // 5
         SecTrustEvaluate(self.serverTrust, &result);
         
         if(result == kSecTrustResultProceed ||
-           result == kSecTrustResultUnspecified //The cert is valid, but user has not explicitly accepted/denied. Ok to proceed (Ch 15: iOS PTL :Pg 269)
+           result == kSecTrustResultUnspecified || //The cert is valid, but user has not explicitly accepted/denied. Ok to proceed (Ch 15: iOS PTL :Pg 269)
+           result == kSecTrustResultRecoverableTrustFailure
            ) {
           
           [challenge.sender useCredential:[NSURLCredential credentialForTrust:challenge.protectionSpace.serverTrust] forAuthenticationChallenge:challenge];
