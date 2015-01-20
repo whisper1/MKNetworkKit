@@ -1174,10 +1174,10 @@ OSStatus extractIdentityAndTrust(CFDataRef inPKCS12Data,        // 5
           
           // invalid or revoked certificate
           if(self.shouldContinueWithInvalidCertificate) {
-            DLog(@"Certificate is invalid, but self.shouldContinueWithInvalidCertificate is YES");
+//            DLog(@"Certificate is invalid, but self.shouldContinueWithInvalidCertificate is YES");
             [challenge.sender useCredential:[NSURLCredential credentialForTrust:challenge.protectionSpace.serverTrust] forAuthenticationChallenge:challenge];
           } else {
-            DLog(@"Certificate is invalid, continuing without credentials. Might result in 401 Unauthorized");
+//            DLog(@"Certificate is invalid, continuing without credentials. Might result in 401 Unauthorized");
             [challenge.sender continueWithoutCredentialForAuthenticationChallenge:challenge];
           }
         }
